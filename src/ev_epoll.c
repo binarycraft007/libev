@@ -63,7 +63,11 @@
  * file descriptors.
  */
 
+#ifdef _WIN32
+#include <wepoll.h>
+#else
 #include <sys/epoll.h>
+#endif
 
 #define EV_EMASK_EPERM 0x80
 
@@ -252,8 +256,10 @@ epoll_epoll_create (void)
     {
       fd = epoll_create (256);
 
+#ifndef _WIN32
       if (fd >= 0)
         fcntl (fd, F_SETFD, FD_CLOEXEC);
+#endif
     }
 
   return fd;
@@ -288,7 +294,11 @@ ecb_cold
 static void
 epoll_fork (EV_P)
 {
+#ifdef _WIN32
+  epoll_close (backend_fd);
+#else
   close (backend_fd);
+#endif
 
   while ((backend_fd = epoll_epoll_create ()) < 0)
     ev_syserr ("(libev) epoll_create");
