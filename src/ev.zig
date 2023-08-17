@@ -5,6 +5,7 @@ const builtin = @import("builtin");
 pub const Loop = @import("ev/Loop.zig");
 pub const Watcher = @import("ev/Watcher.zig");
 pub const StreamServer = @import("ev/StreamServer.zig");
+pub const Resolver = @import("ev/Resolver.zig");
 
 pub const Events = packed struct(c_int) {
     read: bool = false, // ev_io detected read will not block

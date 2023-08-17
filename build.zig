@@ -5,8 +5,19 @@ pub fn build(b: *std.Build) void {
 
     const optimize = b.standardOptimizeOption(.{});
 
+    const zigdig_dep = b.dependency("zigdig", .{
+        .target = target,
+        .optimize = optimize,
+    });
+
     const ev_module = b.addModule("ev", .{
         .source_file = .{ .path = "src/ev.zig" },
+        .dependencies = &.{
+            .{
+                .name = "dns",
+                .module = zigdig_dep.module("dns"),
+            },
+        },
     });
 
     const lib = b.addStaticLibrary(.{

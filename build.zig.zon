@@ -1,0 +1,11 @@
+.{
+    .name = "ev",
+    .version = "0.0.1",
+
+    .dependencies = .{
+        .zigdig = .{
+            .url = "https://github.com/lun-4/zigdig/archive/4a22e5fe41989658e3113587cf2f5ce1ca652d8f.tar.gz",
+            .hash = "12204b0de720a1cc05302d3d571e47c99099cf2299a3030c5c1fe5934b11fe961958",
+        },
+    },
+}
